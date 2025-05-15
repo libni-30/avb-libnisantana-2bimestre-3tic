@@ -1,13 +1,15 @@
-import "./App.css";
-import AppRoutes from "./routes/AppRoutes";
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Home from './pages/Home';
+import CountryDetail from './pages/Favoritos';
 
 function App() {
   return (
-    <>
-      <div>
-        <AppRoutes />
-      </div>
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/pais/:code" element={<CountryDetail />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
