@@ -6,9 +6,14 @@ function Home() {
   const [paises, setPaises] = useState([]);
 
   useEffect(() => {
-    axios.get('https://restcountries.com/v3.1/all')
+    axios.get('https://raw.githubusercontent.com/mledoze/countries/master/countries.json')
       .then(res => {
-        setPaises(res.data);
+        const dados = res.data.map((pais) => ({
+          cca3: pais.cca3,
+          cca2: pais.cca2.toLowerCase(), // usado para montar URL da bandeira
+          name: { common: pais.name.common },
+        }));
+        setPaises(dados);
       })
       .catch(err => {
         console.error('Erro ao carregar países:', err);
@@ -26,9 +31,9 @@ function Home() {
           >
             <Link to={`/detalhes/${pais.cca3}`} className="flex flex-col items-center gap-2">
               <img
-                src={pais.flags.png}
+                src={`https://flagcdn.com/w320/${pais.cca2}.png`}
                 alt={pais.name.common}
-                className="w-16 h-auto rounded"
+                className="w-16 h-10 object-cover rounded"
               />
               <span className="text-center font-medium">{pais.name.common}</span>
             </Link>
