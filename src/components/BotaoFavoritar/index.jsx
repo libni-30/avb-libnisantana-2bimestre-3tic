@@ -1,9 +1,9 @@
-import { useFavoritos } from '../context/FavoritosContext';
+import { useFavoritos } from '../../context/FavoritosContext';
 
 export default function BotaoFavoritar({ pais }) {
   const { favoritos, adicionarFavorito, removerFavorito } = useFavoritos();
 
-  const estaFavoritado = favoritos.some((f) => f.code === pais.code);
+  const estaFavoritado = favoritos.some((f) => f.cca3 === pais.cca3);
 
   function toggleFavorito() {
     if (estaFavoritado) {
@@ -14,15 +14,20 @@ export default function BotaoFavoritar({ pais }) {
   }
 
   return (
-    <button
-      onClick={toggleFavorito}
-      className={`px-4 py-2 rounded-lg font-medium transition ${
-        estaFavoritado
-          ? 'bg-red-500 text-white hover:bg-red-600'
-          : 'bg-green-500 text-white hover:bg-green-600'
-      }`}
-    >
-      {estaFavoritado ? 'Desfavoritar' : 'Favoritar'}
-    </button>
-  );
+  <button
+    onClick={toggleFavorito}
+    style={{
+      padding: '10px 20px',
+      fontWeight: 'bold',
+      fontSize: '16px',
+      color: 'white',
+      backgroundColor: estaFavoritado ? 'red' : 'green',
+      border: '1px solid black',
+      borderRadius: '8px',
+      boxShadow: '2px 2px 6px rgba(0,0,0,0.2)',
+    }}
+  >
+    {estaFavoritado ? 'Desfavoritar' : 'Favoritar'}
+  </button>
+);
 }
